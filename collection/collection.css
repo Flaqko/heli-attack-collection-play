@@ -12,37 +12,59 @@ h1 { margin: 0 0 28px; font-size: clamp(2.6rem, 7vw, 5.2rem); letter-spacing: -.
 h1 span { color: #b9cb96; }
 .games { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
 .game {
-  position: relative;
   display: grid;
-  align-content: end;
-  min-height: 235px;
-  padding: 26px;
-  overflow: hidden;
-  border: 1px solid #839369;
+  min-width: 0;
+  gap: 9px;
   color: inherit;
   text-decoration: none;
-  background: #273829;
 }
-.game-original {
-  background: linear-gradient(0deg, #101a10 5%, #101a10dd 31%, #101a1033 100%),
-    url('assets/heli-attack-1-title.png') center 20% / cover, #26372b;
+.game-cover {
+  position: relative;
+  display: block;
+  aspect-ratio: 16 / 9;
+  border: 1px solid #839369;
+  overflow: hidden;
+  background-color: #273829;
 }
-.game-sequel {
-  background: linear-gradient(0deg, #101a10 5%, #101a10dd 31%, #101a1033 100%),
-    url('assets/heli-attack-2/title-repaint.png') center / contain no-repeat,
+.game-original .game-cover {
+  background: url('assets/heli-attack-1/shapes/92.svg') center 42% / 64% auto no-repeat,
+    radial-gradient(ellipse at 65% 18%, #d8eff1, transparent 62%),
+    linear-gradient(#5791bb, #add0d2 77%, #386b40 78%, #21462f);
+}
+.game-original .game-cover::before,
+.game-enhanced .game-cover::before {
+  content: '';
+  position: absolute;
+  height: 2px;
+  background: #172923;
+  border-radius: 50%;
+  z-index: 1;
+}
+.game-original .game-cover::before { top: 17%; left: 22%; width: 56%; }
+.game-enhanced .game-cover::before { top: 21%; right: 1%; width: 52%; transform: rotate(-4deg); }
+.game-sequel .game-cover {
+  background: url('assets/heli-attack-2/title-repaint.png') center / contain no-repeat,
     url('assets/heli-attack-2/arena-repaint.webp') center / cover, #394b2a;
 }
-.game-enhanced {
-  background: linear-gradient(0deg, #101a10 5%, #101a10dd 31%, #101a1033 100%),
-    url('../assets/enhanced/snow-background-v1.webp') center 43% / cover, #394b2a;
+.game-enhanced .game-cover {
+  background: url('../assets/enhanced/canyon-background-v1.webp') center 52% / cover;
+}
+.game-enhanced .game-cover::after {
+  /* Helicopter frame from the remastered enemy atlas. */
+  content: '';
+  position: absolute;
+  width: 54%;
+  aspect-ratio: 388 / 180;
+  top: 21%;
+  right: 10%;
+  background: url('../assets/enhanced/zone-enemy-air-v1.png') 12.36% 7.73% / 323.2% 696.67% no-repeat;
 }
 .game[data-menu-highlight]:focus { outline: none; }
-.game[data-highlighted="true"] :is(.game-title, .play) {
+.game[data-highlighted="true"] .game-title {
   color: #fff;
   text-shadow: 0 0 .35em #fff;
 }
-.game-title { font-size: 1.85rem; font-weight: 700; }
-.play { margin-top: 23px; font-weight: 700; color: #d3e5a2; }
+.game-title { font-size: 1.1rem; font-weight: 700; }
 .player-page { max-width: 1020px; }
 .player-page h1 { margin-top: 22px; margin-bottom: 18px; font-size: clamp(2.1rem, 6vw, 3.6rem); }
 .back { color: #c6da9a; }
@@ -91,8 +113,7 @@ button:disabled { opacity: .5; cursor: default; }
 #status { color: #cbd2b8; }
 @media (max-width: 580px) {
   main { padding: 24px 16px; }
-  .games { grid-template-columns: 1fr; }
-  .game { min-height: 180px; }
+  .games { grid-template-columns: minmax(0, 1fr); }
 }
 
 [hidden] { display: none !important; }
