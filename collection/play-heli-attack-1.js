@@ -438,6 +438,7 @@ function parallax(speed) {
     const period = clip._width + gap
     const offset = clip.bounds().xMin
     const scroll = speed / divisor * (scene === gameplay ? gameplayScale : 1)
+    const x = clip._x + scroll
     clip._x = ((x + offset) % period + period) % period - period - offset
     repeats.forEach((repeat, index) => {
       root.children.get(repeat)._x = clip._x + (index + 1) * period
