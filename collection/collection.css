@@ -93,7 +93,34 @@ button:disabled { opacity: .5; cursor: default; }
 
 [hidden] { display: none !important; }
 .collection.is-playing { max-width: 1250px; padding-top: 24px; }
-.collection.is-playing h1 { font-size: clamp(1.5rem, 5vw, 2.75rem); margin-bottom: 14px; }
+.collection-header { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 28px; }
+.collection-header h1 { margin: 0; }
+.collection-header [role="status"] { width: 100%; margin: 0; }
+.collection.is-playing .collection-header { margin-bottom: 14px; }
+.collection.is-playing h1 { font-size: clamp(1.5rem, 5vw, 2.75rem); }
+.collection:fullscreen { width: 100%; height: 100%; max-width: none; overflow: auto; background: #151c16; }
+.collection:not(.is-playing):fullscreen { padding: clamp(24px, 10vh, 120px) clamp(16px, 8vw, 120px); }
+.collection.is-playing:fullscreen { padding: 0; overflow: hidden; }
+.collection.is-playing:fullscreen :is(.collection-header, .game-switcher) { display: none; }
+.collection.is-playing:fullscreen :is(#collection-player, .collection-stage, iframe) {
+  height: 100%;
+}
+.collection.is-playing:fullscreen #collection-player iframe { height: 100%; }
+.collection-fullscreen { background: #000; }
+.collection-fullscreen .player-page {
+  width: 100%;
+  height: 100dvh;
+  max-width: none;
+  display: grid;
+  grid-template-rows: minmax(0, 1fr);
+}
+.collection-fullscreen .flash-stage {
+  place-self: center;
+  width: min(100vw, calc(100dvh * 16 / 9));
+  height: min(100dvh, 56.25vw);
+  border: 0;
+}
+.collection-fullscreen .player-footer { display: none; }
 .game-switcher { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; }
 .game-switcher a { color: #edf0da; padding: 8px 12px; border: 1px solid #839369; text-decoration: none; }
 .game-switcher a:hover, .game-switcher [aria-current] { background: #34482c; }

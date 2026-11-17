@@ -1,3 +1,4 @@
+import {bindFullscreen} from '../src/fullscreen.js'
 import {bindControllerCursor, createController} from '../src/controller.js'
 import {bindMenuHighlight} from '../src/menu-highlight.js'
 import {collectionPreferences} from '../src/collection-preferences.js'
@@ -5,6 +6,9 @@ import {bindFpsShortcut} from '../src/fps-counter.js'
 
 bindFpsShortcut()
 
+const collection = document.querySelector('.collection')
+const fullscreen = document.querySelector('#collection-fullscreen')
+const fullscreenStatus = document.querySelector('#collection-fullscreen-status')
 const picker = document.querySelector('.games')
 const player = document.querySelector('#collection-player')
 const frame = player.querySelector('iframe')
@@ -21,6 +25,7 @@ const titles = {
 }
 let active
 let sizeObserver
+let resizeFrame
 let loadObserver
 let opening
 let introAudio
@@ -76,7 +81,22 @@ requestAnimationFrame(pollController)
 window.getCollectionIntroAudioContext = gameDocument =>
   introAudio?.game === active && frame.contentDocument === gameDocument ? introAudio?.context : undefined
 
+bindFullscreen({
+  document,
+  element: collection,
+  button: fullscreen,
+  onChange: () => {
+    fullscreenStatus.hidden = true
+    resizeFrame?.()
+  },
+  onError: message => {
+    fullscreenStatus.textContent = message
+    fullscreenStatus.hidden = false
+  },
+})
+
 function openGame(game) {
+  resizeFrame = undefined
   sizeObserver?.disconnect()
   loadObserver?.disconnect()
   clearTimeout(opening?.timer)
@@ -126,7 +146,7 @@ function selectGame() {
   if (introAudio && introAudio.game !== game) releaseIntroAudio()
   player.hidden = !game
   picker.hidden = Boolean(game)
-  document.querySelector('.collection').classList.toggle('is-playing', Boolean(game))
+  collection.classList.toggle('is-playing', Boolean(game))
   for (const link of links) {
     if (link.dataset.game === id && game) link.setAttribute('aria-current', 'page')
     else link.removeAttribute('aria-current')
@@ -158,12 +178,19 @@ frame.addEventListener('load', () => {
     checkFirstFrame()
   }
   const resize = () => {
+    const collectionFullscreen = window.document.fullscreenElement === collection
+    root.classList.toggle('collection-fullscreen', collectionFullscreen)
+    if (collectionFullscreen) {
+      frame.style.removeProperty('height')
+      return
+    }
     if (!document.fullscreenElement) frame.style.height = Math.ceil(game.getBoundingClientRect().height) + 'px'
   }
   sizeObserver?.disconnect()
   sizeObserver = new ResizeObserver(resize)
   sizeObserver.observe(game)
   document.addEventListener('fullscreenchange', resize)
+  resizeFrame = resize
   resize()
 })
 
