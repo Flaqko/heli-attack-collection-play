@@ -34,8 +34,13 @@ h1 span { color: #b9cb96; }
   background: url('assets/heli-attack-2/title-repaint.png') center / contain no-repeat,
     url('assets/heli-attack-2/arena-repaint.webp') center / cover, #394b2a;
 }
-.game-enhanced .game-cover {
-  background: #172017 url('../assets/shapes/1899.svg') center / contain no-repeat;
+.game-enhanced .game-cover::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: url('../assets/shapes/1899.svg') center / contain no-repeat;
+  /* Stretch the original 389.65 × 253.45 mark to the 16:9 card. */
+  transform: scaleX(1.16);
 }
 .game[data-menu-highlight]:focus { outline: none; }
 .game[data-highlighted="true"] .game-title {
