@@ -7,7 +7,7 @@ import {bindFpsShortcut} from '../src/fps-counter.js'
 bindFpsShortcut()
 
 const collection = document.querySelector('.collection')
-const fullscreen = document.querySelector('#collection-fullscreen')
+const menuButton = document.querySelector('#collection-menu')
 const picker = document.querySelector('.games')
 const player = document.querySelector('#collection-player')
 const frame = player.querySelector('iframe')
@@ -53,15 +53,21 @@ for (const link of links) {
   })
 }
 
-const fullscreenAction = createFullscreenAction(collection, () => {
-  const active = fullscreenAction.active()
-  fullscreen.textContent = active ? 'Exit fullscreen' : 'Fullscreen'
-  fullscreen.setAttribute('aria-pressed', String(active))
-  resizeFrame?.()
-})
+const fullscreenAction = createFullscreenAction(collection, () => resizeFrame?.())
 window.collectionFullscreen = fullscreenAction
-fullscreen.addEventListener('click', () => fullscreenAction.toggle())
-const quickMenu = createCollectionMenu(collection, {fullscreenAction})
+const quickMenu = createCollectionMenu(collection, {
+  fullscreenAction,
+  credits: document.querySelector('#collection-credits').content,
+})
+quickMenu.element.id = 'collection-quick-menu'
+function toggleMenu() {
+  quickMenu.toggle()
+  menuButton.setAttribute('aria-expanded', String(quickMenu.open))
+}
+menuButton.addEventListener('click', toggleMenu)
+quickMenu.element.addEventListener('close', () => {
+  menuButton.setAttribute('aria-expanded', String(quickMenu.open))
+})
 const cursor = bindControllerCursor(picker)
 const controller = createController({
   game: {root: {}, controllerKeys: new Set()},
@@ -69,7 +75,7 @@ const controller = createController({
     try { return navigator.getGamepads?.() } catch { return [] }
   },
   getLayer: () => picker.hidden ? null : quickMenu.open ? quickMenu.element : picker,
-  onMenuPress: () => { if (!picker.hidden) quickMenu.toggle() },
+  onMenuPress: () => { if (!picker.hidden) toggleMenu() },
   isPlaying: () => false,
   onControllerInput: () => { if (!picker.hidden) cursor.hide() },
   onConnection: connected => { if (!connected) cursor.show() },
@@ -142,6 +148,7 @@ function selectGame() {
   if (introAudio && introAudio.game !== game) releaseIntroAudio()
   player.hidden = !game
   picker.hidden = Boolean(game)
+  menuButton.hidden = Boolean(game)
   collection.classList.toggle('is-playing', Boolean(game))
   for (const link of links) {
     if (link.dataset.game === id && game) link.setAttribute('aria-current', 'page')

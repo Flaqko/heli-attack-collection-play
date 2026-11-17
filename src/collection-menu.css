@@ -51,3 +51,7 @@
   font: 14px Arial, sans-serif;
   text-align: center;
 }
+
+.collection-credits { max-width: 23rem; }
+.collection-credits h2 { margin: 0 0 12px; font-size: 1.2em; }
+.collection-credits p { margin: 0 0 10px; font-weight: 400; }

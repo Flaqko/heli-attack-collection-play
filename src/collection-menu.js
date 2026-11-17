@@ -77,7 +77,7 @@ export function createFullscreenAction(element, onChange = () => {}) {
   return {active, toggle}
 }
 
-export function createCollectionMenu(element, {onExit, fullscreenAction} = {}) {
+export function createCollectionMenu(element, {onExit, fullscreenAction, credits} = {}) {
   const shell = window.frameElement?.hasAttribute('data-collection-player') ? window.parent : null
   const localFullscreen = fullscreenAction ?? (shell?.collectionFullscreen ? null : createFullscreenAction(element))
   const fullscreen = () => document.fullscreenElement && shell
@@ -88,12 +88,15 @@ export function createCollectionMenu(element, {onExit, fullscreenAction} = {}) {
   dialog.className = 'collection-quick-menu'
   dialog.setAttribute('aria-label', 'Game menu')
 
-  function addButton(label, callback) {
+  const actions = document.createElement('div')
+  dialog.append(actions)
+
+  function addButton(label, callback, group = actions) {
     const button = document.createElement('button')
     button.type = 'button'
     button.textContent = label
     button.addEventListener('click', callback)
-    dialog.append(button)
+    group.append(button)
     bindMenuHighlight(dialog, button)
     return button
   }
@@ -114,6 +117,31 @@ export function createCollectionMenu(element, {onExit, fullscreenAction} = {}) {
     onExit()
   })
   addButton('Back', () => dialog.close()).dataset.menuAction = 'back'
+  if (credits) {
+    const panel = document.createElement('section')
+    panel.className = 'collection-credits'
+    panel.hidden = true
+    panel.append(credits.cloneNode(true))
+    const creditsButton = addButton('Credits', () => {
+      actions.hidden = true
+      panel.hidden = false
+      dialog.setAttribute('aria-label', 'Credits')
+      back.focus()
+    })
+    const back = addButton('Back', () => {
+      panel.hidden = true
+      actions.hidden = false
+      dialog.setAttribute('aria-label', 'Game menu')
+      creditsButton.focus()
+    }, panel)
+    back.dataset.menuAction = 'back'
+    dialog.append(panel)
+    dialog.addEventListener('close', () => {
+      panel.hidden = true
+      actions.hidden = false
+      dialog.setAttribute('aria-label', 'Game menu')
+    })
+  }
   document.body.append(dialog)
   return {
     element: dialog,
