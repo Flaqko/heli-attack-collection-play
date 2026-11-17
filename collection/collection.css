@@ -27,6 +27,11 @@ h1 span { color: #b9cb96; }
   background: linear-gradient(0deg, #101a10 5%, #101a10dd 31%, #101a1033 100%),
     url('assets/heli-attack-1-title.png') center 20% / cover, #26372b;
 }
+.game-sequel {
+  background: linear-gradient(0deg, #101a10 5%, #101a10dd 31%, #101a1033 100%),
+    url('assets/heli-attack-2/title-repaint.png') center / contain no-repeat,
+    url('assets/heli-attack-2/arena-repaint.webp') center / cover, #394b2a;
+}
 .game-enhanced {
   background: linear-gradient(0deg, #101a10 5%, #101a10dd 31%, #101a1033 100%),
     url('../assets/enhanced/snow-background-v1.webp') center 43% / cover, #394b2a;
@@ -37,7 +42,6 @@ h1 span { color: #b9cb96; }
   text-shadow: 0 0 .35em #fff;
 }
 .game-title { font-size: 1.85rem; font-weight: 700; }
-.edition { margin-top: 6px; color: #cbd2b8; }
 .play { margin-top: 23px; font-weight: 700; color: #d3e5a2; }
 .player-page { max-width: 1020px; }
 .player-page h1 { margin-top: 22px; margin-bottom: 18px; font-size: clamp(2.1rem, 6vw, 3.6rem); }
@@ -98,14 +102,14 @@ button:disabled { opacity: .5; cursor: default; }
 .collection-header [role="status"] { width: 100%; margin: 0; }
 .collection.is-playing .collection-header { margin-bottom: 14px; }
 .collection.is-playing h1 { font-size: clamp(1.5rem, 5vw, 2.75rem); }
-.collection:fullscreen { width: 100%; height: 100%; max-width: none; overflow: auto; background: #151c16; }
-.collection:not(.is-playing):fullscreen { padding: clamp(24px, 10vh, 120px) clamp(16px, 8vw, 120px); }
-.collection.is-playing:fullscreen { padding: 0; overflow: hidden; }
-.collection.is-playing:fullscreen :is(.collection-header, .game-switcher) { display: none; }
-.collection.is-playing:fullscreen :is(#collection-player, .collection-stage, iframe) {
+.collection:is(:fullscreen, .viewport-fullscreen) { width: 100%; height: 100dvh; max-width: none; overflow: auto; background: #151c16; }
+.collection:not(.is-playing):is(:fullscreen, .viewport-fullscreen) { padding: clamp(24px, 10vh, 120px) clamp(16px, 8vw, 120px); }
+.collection.is-playing:is(:fullscreen, .viewport-fullscreen) { padding: 0; overflow: hidden; }
+.collection.is-playing:is(:fullscreen, .viewport-fullscreen) :is(.collection-header, .game-switcher) { display: none; }
+.collection.is-playing:is(:fullscreen, .viewport-fullscreen) :is(#collection-player, .collection-stage, iframe) {
   height: 100%;
 }
-.collection.is-playing:fullscreen #collection-player iframe { height: 100%; }
+.collection.is-playing:is(:fullscreen, .viewport-fullscreen) #collection-player iframe { height: 100%; }
 .collection-fullscreen { background: #000; }
 .collection-fullscreen .player-page {
   width: 100%;

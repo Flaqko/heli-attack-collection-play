@@ -1,4 +1,5 @@
 import {bindMenuHighlight} from '../src/menu-highlight.js'
+import {createCollectionMenu} from '../src/collection-menu.js'
 import {returnToCollection} from '../src/collection-navigation.js'
 import {collectionPreferences} from '../src/collection-preferences.js'
 import {mountFpsCounter} from '../src/fps-counter.js'
@@ -155,14 +156,16 @@ function updateGuide() {
     : ['left', 'right', 'jump', 'duck', 'boost', 'time', 'switch', 'pause'].map(action => keyLabel(keyboard[action]) + ' ' + labels[action]).join(' · ')
 }
 
+const quickMenu = createCollectionMenu(stage, {onExit: returnToCollection})
 const cursor = bindControllerCursor(canvas)
 const controller = createController({
   game: controllerGame,
   getGamepads: () => {
     try { return navigator.getGamepads?.() } catch { return [] }
   },
-  getLayer: () => controllerGame.paused ? pausePanel : !creditsPanel.hidden ? creditsPanel : !helpPanel.hidden ? helpPanel : stage,
+  getLayer: () => quickMenu.open ? quickMenu.element : controllerGame.paused ? pausePanel : !creditsPanel.hidden ? creditsPanel : !helpPanel.hidden ? helpPanel : stage,
   isPlaying: canControl,
+  onMenuPress: () => { if (quickMenu.open || (menu && !play.hidden && helpPanel.hidden && creditsPanel.hidden)) quickMenu.toggle() },
   onPause: () => setPaused(!controllerGame.paused),
   getAimOrigin: () => hero && ({
     x: hero._x + hero.gun._x - camera,

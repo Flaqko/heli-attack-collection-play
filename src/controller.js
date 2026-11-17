@@ -43,7 +43,7 @@ export function bindControllerCursor(target){
   return {hide,show};
 }
 
-export function createController({game,getGamepads,getLayer,isPlaying,onPause,getAimOrigin=defaultAimOrigin,onConnection=()=>{},onGameplayInput=()=>{},onControllerInput=()=>{},onMenuActivate=target=>target?.click(),waitForConfirmRelease=false}){
+export function createController({game,getGamepads,getLayer,isPlaying,onPause,onMenuPress=()=>{},getAimOrigin=defaultAimOrigin,onConnection=()=>{},onGameplayInput=()=>{},onControllerInput=()=>{},onMenuActivate=target=>target?.click(),waitForConfirmRelease=false}){
   let index=null, previous=[], aim, direction='', repeatAt=0;
   const {root,controllerKeys}=game;
   function clear(){
@@ -75,6 +75,8 @@ export function createController({game,getGamepads,getLayer,isPlaying,onPause,ge
     if(pressed(MENU)&&(isPlaying()||game.paused)){
       clear();
       onPause();
+    }else if(pressed(MENU)){
+      onMenuPress();
     }else if(isPlaying()){
       controllerKeys.clear();
       const bindings=[

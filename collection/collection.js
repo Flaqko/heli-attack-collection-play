@@ -1,4 +1,4 @@
-import {bindFullscreen} from '../src/fullscreen.js'
+import {createCollectionMenu, createFullscreenAction} from '../src/collection-menu.js'
 import {bindControllerCursor, createController} from '../src/controller.js'
 import {bindMenuHighlight} from '../src/menu-highlight.js'
 import {collectionPreferences} from '../src/collection-preferences.js'
@@ -8,7 +8,6 @@ bindFpsShortcut()
 
 const collection = document.querySelector('.collection')
 const fullscreen = document.querySelector('#collection-fullscreen')
-const fullscreenStatus = document.querySelector('#collection-fullscreen-status')
 const picker = document.querySelector('.games')
 const player = document.querySelector('#collection-player')
 const frame = player.querySelector('iframe')
@@ -54,18 +53,29 @@ for (const link of links) {
   })
 }
 
+const fullscreenAction = createFullscreenAction(collection, () => {
+  const active = fullscreenAction.active()
+  fullscreen.textContent = active ? 'Exit fullscreen' : 'Fullscreen'
+  fullscreen.setAttribute('aria-pressed', String(active))
+  resizeFrame?.()
+})
+window.collectionFullscreen = fullscreenAction
+fullscreen.addEventListener('click', () => fullscreenAction.toggle())
+const quickMenu = createCollectionMenu(collection, {fullscreenAction})
 const cursor = bindControllerCursor(picker)
 const controller = createController({
   game: {root: {}, controllerKeys: new Set()},
   getGamepads: () => {
     try { return navigator.getGamepads?.() } catch { return [] }
   },
-  getLayer: () => picker.hidden ? null : picker,
+  getLayer: () => picker.hidden ? null : quickMenu.open ? quickMenu.element : picker,
+  onMenuPress: () => { if (!picker.hidden) quickMenu.toggle() },
   isPlaying: () => false,
   onControllerInput: () => { if (!picker.hidden) cursor.hide() },
   onConnection: connected => { if (!connected) cursor.show() },
   onMenuActivate: link => {
     if (!link) return
+    if (quickMenu.open) { link.click(); return }
     if (navigator.userActivation?.hasBeenActive) prepareIntroAudio(titles[link.dataset.game])
     frame.dataset.controllerLaunch = 'true'
     location.hash = link.dataset.game
@@ -80,20 +90,6 @@ requestAnimationFrame(pollController)
 
 window.getCollectionIntroAudioContext = gameDocument =>
   introAudio?.game === active && frame.contentDocument === gameDocument ? introAudio?.context : undefined
-
-bindFullscreen({
-  document,
-  element: collection,
-  button: fullscreen,
-  onChange: () => {
-    fullscreenStatus.hidden = true
-    resizeFrame?.()
-  },
-  onError: message => {
-    fullscreenStatus.textContent = message
-    fullscreenStatus.hidden = false
-  },
-})
 
 function openGame(game) {
   resizeFrame = undefined
@@ -178,7 +174,7 @@ frame.addEventListener('load', () => {
     checkFirstFrame()
   }
   const resize = () => {
-    const collectionFullscreen = window.document.fullscreenElement === collection
+    const collectionFullscreen = fullscreenAction.active()
     root.classList.toggle('collection-fullscreen', collectionFullscreen)
     if (collectionFullscreen) {
       frame.style.removeProperty('height')

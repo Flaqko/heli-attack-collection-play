@@ -1,4 +1,5 @@
 import {bindMenuHighlight} from '../src/menu-highlight.js'
+import {createCollectionMenu} from '../src/collection-menu.js'
 import {returnToCollection} from '../src/collection-navigation.js'
 import {collectionPreferences} from '../src/collection-preferences.js'
 import {mountFpsCounter} from '../src/fps-counter.js'
@@ -91,14 +92,16 @@ const controllerGame = {
   root: {pointer, stats: {leftKey: 37, upKey: 38, rightKey: 39}},
   controllerKeys: new Set(),
 }
+const quickMenu = createCollectionMenu(stage, {onExit: returnToCollection})
 const cursor = bindControllerCursor(canvas)
 const controller = createController({
   game: controllerGame,
   getGamepads: () => {
     try { return navigator.getGamepads?.() } catch { return [] }
   },
-  getLayer: () => paused ? pausePanel : stage,
+  getLayer: () => quickMenu.open ? quickMenu.element : paused ? pausePanel : stage,
   isPlaying: () => scene === gameplay && !paused,
+  onMenuPress: () => { if (quickMenu.open || (scene === title)) quickMenu.toggle() },
   onPause: () => setPaused(!paused),
   onConnection: connected => {
     controllerConnected = connected
@@ -117,6 +120,7 @@ const controller = createController({
 function setPaused(value) {
   if (scene !== gameplay || paused === value) return
   paused = value
+  controllerGame.paused = value
   pausePanel.hidden = !paused
   pause.textContent = paused ? 'Continue' : 'Pause'
   clearInput()

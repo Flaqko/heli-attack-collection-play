@@ -1,4 +1,5 @@
 import {menuHighlightShapeIds} from './menu-highlight.js';
+import {createCollectionMenu} from './collection-menu.js';
 import {returnToCollection} from './collection-navigation.js';
 import {collectionPreferences} from './collection-preferences.js';
 import {mountFpsCounter} from './fps-counter.js';
@@ -214,14 +215,16 @@ soundButton.onclick=()=>soundPreference.set(!soundPreference.get());
 window.addEventListener('keydown',e=>{if(menus.captureKey(e.keyCode)){e.preventDefault();return;}if(pauseMenu.captureKey(e.keyCode)){e.preventDefault();return;}if(!running)return;if(e.keyCode===game.root.stats.pauseKey){e.preventDefault();if(!e.repeat)pause(!game.paused);return;}if(game.paused)return;if(Object.values(labels).length&&Object.keys(labels).some(k=>game.root.stats[k]===e.keyCode)){e.preventDefault();game.keys.add(e.keyCode);}});
 window.addEventListener('keyup',e=>game.keys.delete(e.keyCode));window.addEventListener('blur',()=>pause(true));document.addEventListener('visibilitychange',()=>{if(document.hidden)pause(true);});
 const keyboardGuide=$('#input-guide').innerHTML;
+const quickMenu=createCollectionMenu($('main'),{onExit:returnToCollection});
 const cursor=bindControllerCursor(canvas);
 const controller=createController({
  game,
  getGamepads:()=>{
   try{return navigator.getGamepads?.();}catch{return [];}
  },
- getLayer:()=>menus.visible?menus.layer:game.paused?pauseMenu.layer:null,
+ getLayer:()=>quickMenu.open?quickMenu.element:menus.visible?menus.layer:game.paused?pauseMenu.layer:null,
  isPlaying:()=>running&&!game.paused,
+ onMenuPress:()=>{if(quickMenu.open||menus.visible)quickMenu.toggle();},
  onPause:()=>pause(!game.paused),
  waitForConfirmRelease: window.frameElement?.dataset.controllerLaunch === 'true',
  onControllerInput: cursor.hide,
