@@ -72,7 +72,7 @@ const weapon = [
 const layers = [
   {depth: 2, repeats: [4, 5], divisor: 8, gap: 30},
   {depth: 6, repeats: [9, 10], divisor: 2, gap: 0},
-  {depth: 13, repeats: [15, 16], divisor: 1, gap: 0.5},
+  {depth: 13, repeats: [15, 16], divisor: 1, gap: 0.5, gameplayScale: 0.5},
 ]
 let data, root, state, projectiles, effects
 let scene = 0
@@ -433,11 +433,11 @@ function moveShots() {
 }
 
 function parallax(speed) {
-  for (const {depth, repeats, divisor, gap} of layers) {
+  for (const {depth, repeats, divisor, gap, gameplayScale = 1} of layers) {
     const clip = root.children.get(depth)
     const period = clip._width + gap
     const offset = clip.bounds().xMin
-    const x = clip._x + speed / divisor
+    const scroll = speed / divisor * (scene === gameplay ? gameplayScale : 1)
     clip._x = ((x + offset) % period + period) % period - period - offset
     repeats.forEach((repeat, index) => {
       root.children.get(repeat)._x = clip._x + (index + 1) * period
