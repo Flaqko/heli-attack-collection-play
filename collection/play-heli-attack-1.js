@@ -20,7 +20,6 @@ const extraWidth = width - originalWidth
 const projectileSpeed = 7 * width / originalWidth
 const playerEdgeInset = 15
 const runningSpeed = 3 * (width - 2 * playerEdgeInset) / (originalWidth - 2 * playerEdgeInset)
-const intro = 1
 const title = 5
 const results = 10
 const gameplay = 15
@@ -44,7 +43,7 @@ const context = canvas.getContext('2d')
 const collision = document.createElement('canvas')
 collision.width = collision.height = 1
 const hitContext = collision.getContext('2d', {willReadFrequently: true})
-let audioContext, audioOutput, introSound
+let audioContext, audioOutput
 const shotFiles = ['1716_sBulletSmall0.mp3', '1715_sBullet.mp3', '1725_sRocketlauncher.mp3', '1717_sFlame.mp3', '1727_sShotgun.mp3']
 const shotSounds = new Map()
 const keys = new Set()
@@ -145,21 +144,8 @@ function unlockAudio() {
         .then(buffer => shotSounds.set(file, buffer))
         .catch(error => console.warn('Could not load a shooting sound.', error))
     }
-    introSound = fetchAsset('intro.mp3')
-      .then(response => response.arrayBuffer())
-      .then(bytes => audioContext.decodeAudioData(bytes))
-      .catch(error => {
-        console.warn('Could not decode the original Heli Attack intro audio.', error)
-        return null
-      })
   }
   return audioContext.resume()
-}
-
-async function playIntroSound() {
-  const buffer = await introSound
-  if (!buffer || scene !== intro || audioContext.state !== 'running') return
-  playSound(buffer)
 }
 
 function playSound(buffer, volume = 1) {
@@ -186,7 +172,7 @@ async function fetchAsset(path) {
   return response
 }
 
-function layoutStage(frame) {
+function layoutStage() {
   for (const clip of root.children.values()) {
     switch (clip.id) {
       case 32: case 42: case 44: case 45: case 51: case 52: case 53:
@@ -204,7 +190,6 @@ function layoutStage(frame) {
         break
     }
   }
-  if (frame === intro) return
   for (const {depth, repeats} of layers) {
     const clip = root.children.get(depth)
     const repeat = root.add(new Clip(data, clip.id, root, '', repeats[1]))
@@ -221,14 +206,14 @@ function show(frame) {
     clip._x += 2
     clip._y += 4.5
   }
-  layoutStage(frame)
+  layoutStage()
   scene = frame
   pause.disabled = frame !== gameplay
   motion.reset()
   shooting = false
   projectiles = []
   effects = []
-  action.hidden = frame === gameplay || frame === intro
+  action.hidden = frame === gameplay
   returnButton.hidden = frame !== title
   action.classList.toggle('game-action', frame === title || frame === results)
   menuButton = [...root.children.values()].find(clip => clip.id === (frame === title ? 47 : 54))
@@ -253,7 +238,7 @@ function show(frame) {
   root.score = score
   root.highscore = best
   root.health = state?.health ?? 100
-  stage.dataset.scene = ({1: 'intro', 5: 'title', 10: 'results', 15: 'gameplay'})[frame]
+  stage.dataset.scene = ({5: 'title', 10: 'results', 15: 'gameplay'})[frame]
 }
 
 function resetCopter() {
@@ -448,12 +433,6 @@ function parallax(speed) {
 
 function tick() {
   root.advance()
-  if (scene === intro) {
-    const frame = root.children.get(1)._currentframe
-    if (frame === 19) void playIntroSound()
-    if (frame >= 54) show(title)
-    return
-  }
   if (scene !== gameplay) {
     parallax(8)
     return
@@ -608,7 +587,7 @@ async function start() {
   data = manifest
   status.textContent = controllerConnected ? controllerGuide : keyboardGuide
   action.disabled = false
-  show(intro)
+  show(title)
   if (navigator.userActivation?.hasBeenActive) activateAudio()
   fullscreen.disabled = !document.fullscreenEnabled
   const interval = 1000 / data.fps
