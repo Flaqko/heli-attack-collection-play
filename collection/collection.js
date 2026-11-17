@@ -18,7 +18,7 @@ const spinner = loader.querySelector('.collection-spinner')
 const loadingDelay = 250
 const links = [...document.querySelectorAll('[data-game]')]
 const titles = {
-  'heli-attack-1': {name: 'Heli Attack 1', page: 'heli-attack-1.html'},
+  'heli-attack-1': {name: 'Heli Attack 1', page: 'heli-attack-1.html?v=ha1-startup-2'},
   'heli-attack-2': {name: 'Heli Attack 2', page: 'heli-attack-2.html'},
   'heli-attack-3': {name: 'Heli Attack 3', page: '../index.html'},
 }

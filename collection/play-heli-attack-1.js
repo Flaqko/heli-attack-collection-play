@@ -649,17 +649,25 @@ async function start() {
       motion.setFraction(paused ? 1 : accumulated / interval)
       paint()
     }
-    requestAnimationFrame(draw)
   }
-  requestAnimationFrame(() => {
-    paint()
-    document.documentElement.dataset.collectionLoad = 'ready'
-    requestAnimationFrame(draw)
-  })
+
+  function drawFrame(now) {
+    try {
+      draw(now)
+      document.documentElement.dataset.collectionLoad ??= 'ready'
+      requestAnimationFrame(drawFrame)
+    } catch (error) {
+      reportGameError(error)
+    }
+  }
+
+  requestAnimationFrame(drawFrame)
 }
 
-start().catch(error => {
+function reportGameError(error) {
   console.error(error)
-  status.textContent = 'Heli Attack 1 could not load. Reload to try again.'
+  status.textContent = 'Heli Attack 1 stopped. Reload to try again.'
   document.documentElement.dataset.collectionLoad = 'failed'
-})
+}
+
+start().catch(reportGameError)
