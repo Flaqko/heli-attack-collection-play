@@ -2,28 +2,78 @@ import {bindMenuHighlight} from './menu-highlight.js'
 import {collectionPreferences} from './collection-preferences.js'
 
 export function createFullscreenAction(element, onChange = () => {}) {
+  const touchScreen = window.matchMedia('(any-pointer: coarse)')
+  const portrait = window.matchMedia('(orientation: portrait)')
+  const orientation = window.screen.orientation
+  const status = document.createElement('div')
+  status.className = 'landscape-fullscreen-status'
+  status.hidden = true
+  const tap = document.createElement('button')
+  tap.type = 'button'
+  tap.textContent = 'Tap for landscape'
+  const hint = document.createElement('span')
+  hint.textContent = 'You can also rotate your phone.'
+  status.append(tap, hint)
+  element.append(status)
+
+  let locked = false
+  let entering = false
   const active = () => document.fullscreenElement === element || element.classList.contains('viewport-fullscreen')
-  async function toggle() {
-    if (document.fullscreenElement) {
-      await document.exitFullscreen()
-      return
+  const canEnterNative = () => document.fullscreenEnabled && typeof element.requestFullscreen === 'function'
+
+  function update() {
+    if (!active() && locked) {
+      orientation.unlock?.()
+      locked = false
     }
-    if (active()) {
-      element.classList.remove('viewport-fullscreen')
-    } else {
-      if (document.fullscreenEnabled && navigator.userActivation?.isActive !== false) {
-        try {
-          await element.requestFullscreen()
-          return
-        } catch {
-          // Controller input and some mobile browsers require a viewport fallback.
-        }
-      }
-      element.classList.add('viewport-fullscreen')
-    }
+    tap.hidden = !canEnterNative() || document.fullscreenElement === element
+    hint.textContent = tap.hidden ? 'Rotate your phone for landscape.' : 'You can also rotate your phone.'
+    status.hidden = !active() || !touchScreen.matches || !portrait.matches
     onChange()
   }
-  document.addEventListener('fullscreenchange', onChange)
+
+  async function enter() {
+    if (entering) return
+    entering = true
+    try {
+      if (!document.fullscreenElement && canEnterNative() && navigator.userActivation?.isActive !== false) {
+        try {
+          await element.requestFullscreen()
+          element.classList.remove('viewport-fullscreen')
+        } catch {
+          // Some browsers require a tap to enter native fullscreen.
+        }
+      }
+      if (document.fullscreenElement !== element) element.classList.add('viewport-fullscreen')
+      if (touchScreen.matches && typeof orientation?.lock === 'function') {
+        try {
+          await orientation.lock('landscape')
+          locked = true
+        } catch {
+          // Keep the viewport available for phones that rely on device rotation.
+        }
+      }
+    } finally {
+      entering = false
+      update()
+    }
+  }
+
+  async function toggle() {
+    if (entering) return
+    if (document.fullscreenElement) {
+      await document.exitFullscreen()
+    } else if (active()) {
+      element.classList.remove('viewport-fullscreen')
+      update()
+    } else {
+      await enter()
+    }
+  }
+
+  tap.addEventListener('click', enter)
+  for (const query of [touchScreen, portrait]) query.addEventListener('change', update)
+  document.addEventListener('fullscreenchange', update)
   return {active, toggle}
 }
 
