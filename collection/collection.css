@@ -6,6 +6,7 @@
 }
 * { box-sizing: border-box; }
 body { margin: 0; }
+:root:has(.collection), :root.in-collection { scrollbar-width: none; }
 main { margin: 0 auto; padding: 48px 24px; }
 .library { max-width: 940px; padding-top: clamp(48px, 12vh, 140px); }
 h1 { margin: 0 0 28px; font-size: clamp(2.6rem, 7vw, 5.2rem); letter-spacing: -.055em; line-height: .95; }
