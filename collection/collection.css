@@ -27,37 +27,15 @@ h1 span { color: #b9cb96; }
   background-color: #273829;
 }
 .game-original .game-cover {
-  background: url('assets/heli-attack-1/shapes/92.svg') center 42% / 64% auto no-repeat,
-    radial-gradient(ellipse at 65% 18%, #d8eff1, transparent 62%),
-    linear-gradient(#5791bb, #add0d2 77%, #386b40 78%, #21462f);
+  /* Frame the original wordmark and scenery above the title screen's Play prompt. */
+  background: #2b93ed url('assets/heli-attack-1-title.png') center 28% / cover no-repeat;
 }
-.game-original .game-cover::before,
-.game-enhanced .game-cover::before {
-  content: '';
-  position: absolute;
-  height: 2px;
-  background: #172923;
-  border-radius: 50%;
-  z-index: 1;
-}
-.game-original .game-cover::before { top: 17%; left: 22%; width: 56%; }
-.game-enhanced .game-cover::before { top: 21%; right: 1%; width: 52%; transform: rotate(-4deg); }
 .game-sequel .game-cover {
   background: url('assets/heli-attack-2/title-repaint.png') center / contain no-repeat,
     url('assets/heli-attack-2/arena-repaint.webp') center / cover, #394b2a;
 }
 .game-enhanced .game-cover {
-  background: url('../assets/enhanced/canyon-background-v1.webp') center 52% / cover;
-}
-.game-enhanced .game-cover::after {
-  /* Helicopter frame from the remastered enemy atlas. */
-  content: '';
-  position: absolute;
-  width: 54%;
-  aspect-ratio: 388 / 180;
-  top: 21%;
-  right: 10%;
-  background: url('../assets/enhanced/zone-enemy-air-v1.png') 12.36% 7.73% / 323.2% 696.67% no-repeat;
+  background: #172017 url('../assets/shapes/1899.svg') center / contain no-repeat;
 }
 .game[data-menu-highlight]:focus { outline: none; }
 .game[data-highlighted="true"] .game-title {
