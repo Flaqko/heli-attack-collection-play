@@ -28,7 +28,7 @@ h1 span { color: #b9cb96; }
 }
 .game-original .game-cover {
   /* Frame the original wordmark and scenery above the title screen's Play prompt. */
-  background: #2b93ed url('assets/heli-attack-1-title.png') center 28% / cover no-repeat;
+  background: #2b93ed url('assets/heli-attack-1-title.png') left 11% / 135% auto no-repeat;
 }
 .game-sequel .game-cover {
   background: url('assets/heli-attack-2/title-repaint.png') center / contain no-repeat,
