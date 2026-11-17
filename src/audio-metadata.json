@@ -1,0 +1,286 @@
+{
+  "source": "FFDec DefineSoundTag + ExportAssetsTag, source.xml",
+  "decoderCaveat": "SeekSamples is signed little-endian source samples. Runtime applies source seek/count only when decoded duration matches complete raw MP3 frames; already-trimmed or unknown decoder results retain default playback. Original files are not re-encoded. Live audible Flash parity remains unverified.",
+  "sounds": {
+    "sLevelSelectLoop": {
+      "soundId": 1702,
+      "sampleRate": 11025,
+      "start": 1661,
+      "frames": 135734,
+      "format": 2
+    },
+    "sLevelLoopHardcore": {
+      "soundId": 1703,
+      "sampleRate": 11025,
+      "start": 1661,
+      "frames": 396977,
+      "format": 2
+    },
+    "sIntro": {
+      "soundId": 1704,
+      "sampleRate": 11025,
+      "start": 1661,
+      "frames": 35315,
+      "format": 2
+    },
+    "sMenuLoop": {
+      "soundId": 1705,
+      "sampleRate": 11025,
+      "start": 1661,
+      "frames": 352800,
+      "format": 2
+    },
+    "sLevelLoopEvil": {
+      "soundId": 1706,
+      "sampleRate": 11025,
+      "start": 1661,
+      "frames": 211680,
+      "format": 2
+    },
+    "sLevelLoopJungle": {
+      "soundId": 1707,
+      "sampleRate": 11025,
+      "start": 1661,
+      "frames": 447211,
+      "format": 2
+    },
+    "sLevelLoopTraining": {
+      "soundId": 1708,
+      "sampleRate": 11025,
+      "start": 1661,
+      "frames": 146857,
+      "format": 2
+    },
+    "sABomb": {
+      "soundId": 1709,
+      "sampleRate": 22050,
+      "start": 1669,
+      "frames": 60166,
+      "format": 2
+    },
+    "sAirstrike": {
+      "soundId": 1710,
+      "sampleRate": 22050,
+      "start": 1669,
+      "frames": 31015,
+      "format": 2
+    },
+    "sAirstrikeCall": {
+      "soundId": 1711,
+      "sampleRate": 22050,
+      "start": 1669,
+      "frames": 11935,
+      "format": 2
+    },
+    "sBigExplosion": {
+      "soundId": 1712,
+      "sampleRate": 22050,
+      "start": 1669,
+      "frames": 39437,
+      "format": 2
+    },
+    "sBlackhole": {
+      "soundId": 1713,
+      "sampleRate": 22050,
+      "start": 1669,
+      "frames": 85011,
+      "format": 2
+    },
+    "sBladerang": {
+      "soundId": 1714,
+      "sampleRate": 22050,
+      "start": 1669,
+      "frames": 15771,
+      "format": 2
+    },
+    "sBullet": {
+      "soundId": 1715,
+      "sampleRate": 22050,
+      "start": 1669,
+      "frames": 7030,
+      "format": 2
+    },
+    "sBulletSmall0": {
+      "soundId": 1716,
+      "sampleRate": 22050,
+      "start": 1669,
+      "frames": 4950,
+      "format": 2
+    },
+    "sFlame": {
+      "soundId": 1717,
+      "sampleRate": 22050,
+      "start": 1669,
+      "frames": 18954,
+      "format": 2
+    },
+    "sGooGun": {
+      "soundId": 1718,
+      "sampleRate": 22050,
+      "start": 1669,
+      "frames": 11950,
+      "format": 2
+    },
+    "sGooHit": {
+      "soundId": 1719,
+      "sampleRate": 22050,
+      "start": 1669,
+      "frames": 9637,
+      "format": 2
+    },
+    "sTaser": {
+      "soundId": 1720,
+      "sampleRate": 22050,
+      "start": 1669,
+      "frames": 6946,
+      "format": 2
+    },
+    "sGrenade": {
+      "soundId": 1721,
+      "sampleRate": 22050,
+      "start": 1669,
+      "frames": 11109,
+      "format": 2
+    },
+    "sKnife": {
+      "soundId": 1722,
+      "sampleRate": 22050,
+      "start": 1669,
+      "frames": 8083,
+      "format": 2
+    },
+    "sLaser": {
+      "soundId": 1723,
+      "sampleRate": 22050,
+      "start": 1669,
+      "frames": 9410,
+      "format": 2
+    },
+    "sRailgun": {
+      "soundId": 1724,
+      "sampleRate": 22050,
+      "start": 1669,
+      "frames": 19072,
+      "format": 2
+    },
+    "sRocketlauncher": {
+      "soundId": 1725,
+      "sampleRate": 22050,
+      "start": 1669,
+      "frames": 14884,
+      "format": 2
+    },
+    "sShotgun": {
+      "soundId": 1727,
+      "sampleRate": 22050,
+      "start": 1669,
+      "frames": 15322,
+      "format": 2
+    },
+    "sExplosion": {
+      "soundId": 1728,
+      "sampleRate": 22050,
+      "start": 1669,
+      "frames": 24885,
+      "format": 2
+    },
+    "sSoundwaave": {
+      "soundId": 1729,
+      "sampleRate": 22050,
+      "start": 1669,
+      "frames": 25697,
+      "format": 2
+    },
+    "sSparkplug": {
+      "soundId": 1730,
+      "sampleRate": 22050,
+      "start": 1669,
+      "frames": 13105,
+      "format": 2
+    },
+    "sHyperJump": {
+      "soundId": 1731,
+      "sampleRate": 22050,
+      "start": 1669,
+      "frames": 36598,
+      "format": 2
+    },
+    "sPlayerHit": {
+      "soundId": 1732,
+      "sampleRate": 22050,
+      "start": 1669,
+      "frames": 9609,
+      "format": 2
+    },
+    "sHeli": {
+      "soundId": 1733,
+      "sampleRate": 11025,
+      "start": 1661,
+      "frames": 14979,
+      "format": 2
+    },
+    "sMetal0": {
+      "soundId": 1734,
+      "sampleRate": 22050,
+      "start": 1669,
+      "frames": 7341,
+      "format": 2
+    },
+    "sMetal1": {
+      "soundId": 1735,
+      "sampleRate": 22050,
+      "start": 1669,
+      "frames": 6681,
+      "format": 2
+    },
+    "sMetal2": {
+      "soundId": 1736,
+      "sampleRate": 22050,
+      "start": 1669,
+      "frames": 6680,
+      "format": 2
+    },
+    "sMetal3": {
+      "soundId": 1737,
+      "sampleRate": 22050,
+      "start": 1669,
+      "frames": 7341,
+      "format": 2
+    },
+    "sPickup": {
+      "soundId": 1738,
+      "sampleRate": 22050,
+      "start": 1669,
+      "frames": 7314,
+      "format": 2
+    },
+    "sBulletSmall1": {
+      "soundId": 1739,
+      "sampleRate": 22050,
+      "start": 1669,
+      "frames": 4950,
+      "format": 2
+    },
+    "sBulletSmall2": {
+      "soundId": 1740,
+      "sampleRate": 22050,
+      "start": 1669,
+      "frames": 4950,
+      "format": 2
+    },
+    "sBulletSmall3": {
+      "soundId": 1741,
+      "sampleRate": 22050,
+      "start": 1669,
+      "frames": 4950,
+      "format": 2
+    },
+    "sEndLevel": {
+      "soundId": 1742,
+      "sampleRate": 11025,
+      "start": 1661,
+      "frames": 22315,
+      "format": 2
+    }
+  }
+}

@@ -1,0 +1,12 @@
+.fps-counter {
+  position: absolute;
+  top: .5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1;
+  padding: .25em .5em;
+  background: #101820d9;
+  color: #fff;
+  font: 12px ui-monospace, monospace;
+  pointer-events: none;
+}

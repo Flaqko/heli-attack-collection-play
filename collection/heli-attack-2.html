@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Heli Attack 2</title>
+<link rel="stylesheet" href="collection.css">
+<link rel="stylesheet" href="../src/fps-counter.css">
+<script type="module" src="play-heli-attack-2.js"></script>
+</head>
+<body>
+<main class="player-page">
+<a class="back" href="index.html">← Collection</a>
+<h1>Heli Attack 2</h1>
+<div class="flash-stage ha2-stage">
+<canvas width="960" height="540" tabindex="0" aria-label="Heli Attack 2 arena"></canvas>
+<section id="ha2-results-panel" hidden aria-labelledby="ha2-results-heading">
+<h2 id="ha2-results-heading">Statistics:</h2>
+<dl>
+<dt>Score:</dt><dd data-result="score"></dd>
+<dt>Time Played:</dt><dd data-result="time"></dd>
+<dt>Heli’s Destroyed:</dt><dd data-result="helis"></dd>
+<dt>Shots Fired:</dt><dd data-result="shots"></dd>
+<dt>Shots Hit:</dt><dd data-result="hits"></dd>
+<dt>Accuracy:</dt><dd data-result="accuracy"></dd>
+<dt>Favourite Weapon:</dt><dd data-result="weapon"></dd>
+</dl>
+</section>
+<button id="play" disabled>Start</button>
+<button id="ha2-menu-back" hidden>Main menu</button>
+<button id="help-button" class="game-action" hidden>Instructions</button>
+<button id="ha2-controls-button" class="game-action" hidden>Controls</button>
+<button id="ha2-stats-button" class="game-action" hidden>Statistics</button>
+<button id="ha2-high-scores-button" class="game-action" type="button" hidden>High Scores</button>
+<button id="ha2-credits-button" type="button" hidden>Credits</button>
+<button id="ha2-return" type="button" aria-label="Return to Heli Attack Collection" hidden>Return</button>
+<section id="ha2-credits-panel" hidden aria-labelledby="ha2-credits-heading">
+<h2 id="ha2-credits-heading" tabindex="-1">Credits</h2>
+<p>Chris “topred” Rhodes<br>Chris “DayDream” Hildenbrand</p>
+<p>Collection by Flaqko</p>
+<div class="ha2-credit-marks">
+<img src="assets/heli-attack-2/shapes/428.svg" width="145" height="29" alt="Square Circle Co.">
+<img src="assets/heli-attack-2/shapes/420.svg" width="148" height="26" alt="Miniclip.com — Free Games and Shows">
+</div>
+<button id="ha2-credits-back" type="button">Back</button>
+</section>
+<section id="ha2-pause-panel" hidden aria-label="Paused">
+<h2 id="ha2-pause-heading" hidden>Game Paused</h2>
+<button id="ha2-resume" data-menu-action="back" type="button">Continue</button>
+<button id="ha2-quit" type="button">Main menu</button>
+</section>
+<section id="help-panel" hidden aria-labelledby="ha2-help-heading">
+<article class="ha2-info-card ha2-instructions" data-menu-page="help" hidden>
+<h2 id="ha2-help-heading" tabindex="-1">Instructions</h2>
+<p>You are an elite soldier. Your jet fighter was destroyed in an intense air battle and you eject right into the middle of enemy territory. How long can you survive the waves of helicopters sent to kill you?</p>
+<p>Get the highest score possible by destroying wave upon wave of helicopters. Avoid enemy fire while shooting them down.</p>
+<p>Move left or right and <strong>use the mouse to aim. Click the mouse button to shoot your weapon.</strong><br>
+You can jump once more in the air. Use HyperJump to get above a helicopter and shoot it down to get a random weapon.<br>
+Use TimeDistort to slow down time and give yourself longer to react.<br>
+Collect weapons and power-ups to help you along the way.<br>
+Good luck.</p>
+<button class="ha2-info-back" type="button" data-menu-action="back">Click here for main menu</button>
+</article>
+<article class="ha2-info-card ha2-options" data-menu-page="controls" hidden>
+<h2 id="ha2-controls-heading" tabindex="-1">Options</h2>
+<div class="ha2-sound-setting"><span>Sound</span><button id="ha2-options-sound" type="button"></button></div>
+<h3>Controls (Click to change)</h3>
+<div id="ha2-binding-list"></div>
+<dl class="ha2-mouse-controls"><dt>Aim</dt><dd>Mouse pointer</dd><dt>Fire</dt><dd>Mouse click</dd></dl>
+<p id="ha2-binding-status" role="status"></p>
+<button id="ha2-reset-keys" type="button">Reset defaults</button>
+<button class="ha2-info-back" type="button" data-menu-action="back">Click here for main menu</button>
+</article>
+<article class="ha2-info-card ha2-statistics" data-menu-page="stats" hidden>
+<button id="ha2-reset-stats" type="button">Reset Statistics</button>
+<h2 id="ha2-stats-heading" tabindex="-1">Total Statistics</h2>
+<dl id="ha2-lifetime-stats"></dl>
+<details><summary>Weapon usage</summary><dl id="ha2-lifetime-weapons"></dl></details>
+<p id="ha2-stats-status" role="status"></p>
+<button class="ha2-info-back" type="button" data-menu-action="back">Click here for main menu</button>
+</article>
+<article class="ha2-info-card ha2-high-scores" data-menu-page="scores" hidden>
+<h2 id="ha2-scores-heading" tabindex="-1">High Scores</h2>
+<p>Best runs saved in this browser</p>
+<p id="ha2-scores-empty" hidden>No scores yet. Finish a run to set your first record.</p>
+<table id="ha2-scores-table" aria-labelledby="ha2-scores-heading" hidden>
+<thead><tr><th scope="col">Rank</th><th scope="col">Score</th></tr></thead>
+<tbody id="ha2-scores-list"></tbody>
+</table>
+<button class="ha2-info-back" type="button" data-menu-action="back">Click here for main menu</button>
+</article>
+</section>
+</div>
+<div class="player-footer"><p id="status" role="status">Loading Heli Attack 2…</p><button id="ha2-pause" type="button" disabled>Pause</button><button id="ha2-sound" type="button" aria-pressed="true">Sound on</button><button id="ha2-fullscreen" type="button" aria-pressed="false" disabled>Fullscreen</button></div>
+</main>
+</body>
+</html>

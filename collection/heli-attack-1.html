@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Heli Attack 1 · Heli Attack Collection</title>
+<link rel="stylesheet" href="collection.css">
+<link rel="stylesheet" href="../src/fps-counter.css">
+<script type="module" src="play-heli-attack-1.js"></script>
+</head>
+<body>
+<main class="player-page">
+  <a class="back" href="index.html">← Collection</a>
+  <h1>Heli Attack 1</h1>
+  <div id="game-stage" class="flash-stage ha1-stage">
+    <canvas width="960" height="540" tabindex="-1" aria-label="Heli Attack 1 game"></canvas>
+    <button id="play" type="button" hidden disabled>Start game</button>
+    <button id="ha1-return" type="button" aria-label="Return to Heli Attack Collection" hidden>Return</button>
+    <section id="pause-panel" aria-labelledby="ha1-pause-title" hidden>
+      <div class="ha1-pause-menu">
+        <h2 id="ha1-pause-title">Pause Menu</h2>
+        <button id="resume" type="button">Continue</button>
+        <button id="ha1-pause-sound" type="button" aria-pressed="true">Sound on</button>
+        <button id="ha1-back-to-title" type="button">Back to Title</button>
+      </div>
+    </section>
+  </div>
+  <div class="player-footer">
+    <p id="status" role="status">Preparing Heli Attack 1…</p>
+    <div class="player-controls">
+      <button id="pause" type="button" disabled>Pause</button>
+      <button id="sound" type="button" aria-pressed="true">Sound on</button>
+      <button id="fullscreen" type="button" disabled>Fullscreen</button>
+    </div>
+  </div>
+</main>
+</body>
+</html>

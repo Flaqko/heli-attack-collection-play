@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Heli Attack Collection</title>
+<link rel="stylesheet" href="collection.css">
+  <script type="module" src="collection.js"></script>
+</head>
+<body>
+<main class="collection library">
+  <h1>Heli Attack <span>Collection</span></h1>
+  <nav class="games" aria-label="Games">
+    <a class="game game-original" href="#heli-attack-1" data-game="heli-attack-1">
+      <span class="game-number" aria-hidden="true">01</span>
+      <span class="game-title">Heli Attack 1</span>
+      <span class="edition">Enhanced</span>
+      <span class="play">Play <span aria-hidden="true">→</span></span>
+    </a>
+    <a class="game" href="#heli-attack-2" data-game="heli-attack-2">
+      <span class="game-title">Heli Attack 2</span>
+      <span class="edition">Playable preview</span>
+      <span class="play">Play <span aria-hidden="true">→</span></span>
+    </a>
+    <a class="game game-enhanced" href="#heli-attack-3" data-game="heli-attack-3">
+      <span class="game-number" aria-hidden="true">03</span>
+      <span class="game-title">Heli Attack 3</span>
+      <span class="edition">Enhanced</span>
+      <span class="play">Play <span aria-hidden="true">→</span></span>
+    </a>
+  </nav>
+  <section id="collection-player" hidden aria-label="Collection player">
+    <nav class="game-switcher" aria-label="Switch game">
+      <a href="#">All games</a>
+      <a href="#heli-attack-1" data-game="heli-attack-1">Heli Attack 1</a>
+      <a href="#heli-attack-2" data-game="heli-attack-2">Heli Attack 2</a>
+      <a href="#heli-attack-3" data-game="heli-attack-3">Heli Attack 3</a>
+    </nav>
+    <div class="collection-stage">
+      <iframe title="Heli Attack" data-collection-player allowfullscreen></iframe>
+      <div id="collection-loading" class="collection-loading" hidden>
+        <span class="collection-spinner" aria-hidden="true"></span>
+        <p id="collection-loading-message" role="status"></p>
+        <button id="collection-retry" type="button" hidden>Retry</button>
+      </div>
+    </div>
+  </section>
+</main>
+</body>
+</html>

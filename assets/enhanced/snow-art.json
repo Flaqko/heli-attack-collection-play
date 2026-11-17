@@ -1,0 +1,88 @@
+{
+  "version": 1,
+  "background": {
+    "id": 1617,
+    "path": "assets/enhanced/snow-background-v1.webp",
+    "width": 1484,
+    "height": 1060
+  },
+  "trees": {
+    "path": "assets/enhanced/snow-trees-v1.webp",
+    "width": 1942,
+    "height": 809
+  },
+  "groups": [
+    {
+      "columns": 3,
+      "rows": 3,
+      "ids": [
+        1523,
+        1525,
+        1527,
+        1551,
+        1553,
+        1555,
+        1579,
+        1581,
+        1583
+      ],
+      "source": [
+        107,
+        147,
+        482,
+        526
+      ],
+      "target": [
+        9.5,
+        1.5,
+        86.5,
+        94.5
+      ]
+    },
+    {
+      "columns": 2,
+      "rows": 3,
+      "ids": [
+        1519,
+        1521,
+        1547,
+        1549,
+        1575,
+        1577
+      ],
+      "source": [
+        794,
+        144,
+        344,
+        529
+      ],
+      "target": [
+        0.0,
+        0.5,
+        64.0,
+        95.5
+      ]
+    },
+    {
+      "columns": 1,
+      "rows": 3,
+      "ids": [
+        1529,
+        1557,
+        0
+      ],
+      "source": [
+        1522,
+        144,
+        190,
+        529
+      ],
+      "target": [
+        0.0,
+        0.0,
+        32.0,
+        96.0
+      ]
+    }
+  ]
+}
