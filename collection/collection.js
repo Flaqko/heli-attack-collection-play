@@ -19,8 +19,8 @@ const loadingDelay = 250
 const links = [...document.querySelectorAll('[data-game]')]
 const titles = {
   'heli-attack-1': {name: 'Heli Attack 1', page: 'heli-attack-1.html?v=initial-selection-1'},
-  'heli-attack-2': {name: 'Heli Attack 2', page: 'heli-attack-2.html?v=initial-selection-1'},
-  'heli-attack-3': {name: 'Heli Attack 3', page: '../index.html?v=initial-selection-1'},
+  'heli-attack-2': {name: 'Heli Attack 2', page: 'heli-attack-2.html?v=options-focus-1'},
+  'heli-attack-3': {name: 'Heli Attack 3', page: '../index.html?v=level-start-1'},
 }
 let active
 let sizeObserver

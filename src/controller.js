@@ -132,7 +132,7 @@ export function createController({game,getGamepads,getLayer,isPlaying,onPause,on
         }
         let focused=buttons.find(button=>button===layer.ownerDocument.activeElement);
         if((layer!==menuLayer||buttons[0]!==menuFirst)&&!focused&&!layer.contains?.(layer.ownerDocument.activeElement)){
-          focused=buttons[0];
+          focused=buttons.find(button=>button.dataset?.menuAction==='play')??buttons[0];
           focused?.focus?.({preventScroll:true});
         }
         menuLayer=layer;
