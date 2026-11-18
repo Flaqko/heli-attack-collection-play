@@ -19,7 +19,12 @@
   text-align: left;
   cursor: pointer;
 }
-.collection-quick-menu button:focus { outline: none; }
+.collection-quick-menu button:is(:hover, :focus, :focus-visible) {
+  background: transparent;
+  border: 0;
+  outline: none;
+  box-shadow: none;
+}
 .collection-quick-menu button[data-highlighted="true"] {
   color: #fff;
   text-shadow: 0 0 .35em #fff;
