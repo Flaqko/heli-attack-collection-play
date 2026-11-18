@@ -55,6 +55,7 @@ export function createMenus({data,stage,audio,onStart,onReturn,onControls,onOpti
   }
   // Navigation remains available on pages whose scripted widgets are still being ported.
   if(page!=='select'&&page!=='menuintro'&&page!=='menu'&&page!=='new'&&![...root.children.values()].some(c=>c._visible&&menuActions[c.id]==='menu')){const back=document.createElement('button');back.textContent='Main menu';back.className='menu-back';bindMenuHighlight(layer,back);back.style.cssText='position:absolute;pointer-events:auto;left:25%;top:3%;font-size:12px;padding:4px';back.onclick=()=>show('menu');layer.append(back);}
+  if(page==='menu')layer.querySelector?.('[data-menu-action="levelselect"]')?.focus({preventScroll:true});
   updateMusic();
  }
  show('menu');return api;

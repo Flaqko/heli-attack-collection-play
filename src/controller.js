@@ -45,6 +45,7 @@ export function bindControllerCursor(target){
 
 export function createController({game,getGamepads,getLayer,isPlaying,onPause,onMenuPress=()=>{},getAimOrigin=defaultAimOrigin,onConnection=()=>{},onGameplayInput=()=>{},onControllerInput=()=>{},onMenuActivate=target=>target?.click(),waitForConfirmRelease=false}){
   let index=null, previous=[], aim, direction='', repeatAt=0;
+  let menuLayer=null, menuFirst=null;
   const {root,controllerKeys}=game;
   function clear(){
     controllerKeys.clear();
@@ -52,6 +53,8 @@ export function createController({game,getGamepads,getLayer,isPlaying,onPause,on
     game.controllerShot=false;
     aim=undefined;
     direction='';
+    menuLayer=null;
+    menuFirst=null;
   }
 
   function poll(now){
@@ -127,7 +130,13 @@ export function createController({game,getGamepads,getLayer,isPlaying,onPause,on
           previous=heldButtons;
           return;
         }
-        const focused=buttons.find(button=>button===layer.ownerDocument.activeElement);
+        let focused=buttons.find(button=>button===layer.ownerDocument.activeElement);
+        if((layer!==menuLayer||buttons[0]!==menuFirst)&&!focused&&!layer.contains?.(layer.ownerDocument.activeElement)){
+          focused=buttons[0];
+          focused?.focus?.({preventScroll:true});
+        }
+        menuLayer=layer;
+        menuFirst=buttons[0];
         const x=Number((!levelSelect&&down(RIGHT))||leftX>.55)-Number((!levelSelect&&down(LEFT))||leftX<-.55);
         const y=Number(down(DOWN)||leftY>.55)-Number(down(UP)||leftY<-.55);
         const nextDirection=x||y?`${x},${y}`:'';

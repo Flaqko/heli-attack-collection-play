@@ -1,5 +1,5 @@
 import {createCollectionMenu, createFullscreenAction} from '../src/collection-menu.js'
-import {bindControllerCursor, createController} from '../src/controller.js'
+import {bindControllerCursor, createController} from '../src/controller.js?v=initial-selection-1'
 import {bindMenuHighlight} from '../src/menu-highlight.js'
 import {collectionPreferences} from '../src/collection-preferences.js'
 import {bindFpsShortcut} from '../src/fps-counter.js'
@@ -18,9 +18,9 @@ const spinner = loader.querySelector('.collection-spinner')
 const loadingDelay = 250
 const links = [...document.querySelectorAll('[data-game]')]
 const titles = {
-  'heli-attack-1': {name: 'Heli Attack 1', page: 'heli-attack-1.html?v=ha1-title-3'},
-  'heli-attack-2': {name: 'Heli Attack 2', page: 'heli-attack-2.html'},
-  'heli-attack-3': {name: 'Heli Attack 3', page: '../index.html'},
+  'heli-attack-1': {name: 'Heli Attack 1', page: 'heli-attack-1.html?v=initial-selection-1'},
+  'heli-attack-2': {name: 'Heli Attack 2', page: 'heli-attack-2.html?v=initial-selection-1'},
+  'heli-attack-3': {name: 'Heli Attack 3', page: '../index.html?v=initial-selection-1'},
 }
 let active
 let sizeObserver
@@ -155,6 +155,7 @@ function selectGame() {
     else link.removeAttribute('aria-current')
   }
   openGame(game)
+  if (!game) picker.querySelector('a')?.focus({preventScroll: true})
 }
 
 frame.addEventListener('load', () => {
@@ -199,3 +200,4 @@ frame.addEventListener('load', () => {
 
 window.addEventListener('hashchange', selectGame)
 selectGame()
+if (!active) picker.querySelector('a')?.focus({preventScroll: true})

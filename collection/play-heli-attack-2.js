@@ -11,7 +11,7 @@ import {traceTravel} from './heli-attack-2-travel.js'
 import {createShapeCollision} from './heli-attack-2-collision.js'
 import {defaults, labels, allowedKey, readBindings, keyboardAction, keyLabel} from './heli-attack-2-controls.js'
 import {freshStats, readLifetimeStats, recordRun, includeLegacyScore} from './heli-attack-2-stats.js'
-import {bindControllerCursor, createController} from '../src/controller.js'
+import {bindControllerCursor, createController} from '../src/controller.js?v=initial-selection-1'
 import {createMotionInterpolation} from '../src/motion-interpolation.js'
 import {createPatrol, stepPatrol} from './heli-attack-2-patrol.js'
 import {displayCanvasSize} from '../src/render-resolution.js'
@@ -22,7 +22,7 @@ import {prepareArenaBackdrop, prepareTitlePainting} from './heli-attack-2-backdr
 import {preparePlayerArt, prepareHeldWeaponArt, prepareHelicopterArt, drawHelicopterRotors, prepareParachuteArt, preparePickupCrateArt, prepareHudBarArt, prepareProjectileArt} from './heli-attack-2-player-art.js'
 import {createArtworkCanvas, loadArtworkImage} from '../src/tile-art.js'
 import {prepareTerrainArt, terrainShapeIds, prepareFoliageArt, foliageShapeIds} from './heli-attack-2-terrain-art.js'
-import {prepareHudText, drawHudText, prepareTitleText, preparePopupText} from './heli-attack-2-hud-text.js'
+import {prepareHudText, drawHudText, prepareTitleText, preparePopupText} from './heli-attack-2-hud-text.js?v=initial-selection-1'
 import {removeBitmapFill} from '../src/registered-art.js'
 import {GameAudio} from '../src/audio.js'
 import {svgMaskPaths, maskShapeIds} from '../src/rendering.js'
@@ -483,8 +483,8 @@ function showMenu() {
   menuPanel._y -= panelTop * extraPanelScale
   menuPanel._yscale += extraPanelScale * 100
   menuText = enhancedArt ? prepareTitleText(menu) : []
-  positionMenuButton(play, 416)
-  positionMenuButton(helpButton, 418)
+  positionMenuButton(play, enhancedArt ? 418 : 416)
+  positionMenuButton(helpButton, enhancedArt ? 416 : 418)
   positionMenuButton(controlsButton, 413)
   positionMenuButton(statsButton, 414)
   positionMenuButton(highScoresButton, 415)
@@ -497,6 +497,7 @@ function showMenu() {
   play.hidden = false
   syncAudio()
   status.textContent = 'Heli Attack 2 · Native preview'
+  play.focus({preventScroll: true})
 }
 
 function positionMenuButton(button, id, offsetY = 0) {

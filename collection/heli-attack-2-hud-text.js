@@ -53,8 +53,8 @@ export function prepareTitleText(menu) {
   const shadow = [...menu.children.values()].find(clip => clip.id === 422)
   heading._visible = shadow._visible = false
   return [
-    ['Main menu:', 1], ['Instructions', 29], ['Controls', 43],
-    ['Statistics', 57], ['High Scores', 71], ['Credits', 85], ['Start', 99], ['Return', 113],
+    ['Main menu:', 1], ['Start', 29], ['Controls', 43],
+    ['Statistics', 57], ['High Scores', 71], ['Credits', 85], ['Instructions', 99], ['Return', 113],
   ].map(([label, y]) => ({clip: heading, label, y, size: 10.5, maxWidth: 74.5}))
 }
 

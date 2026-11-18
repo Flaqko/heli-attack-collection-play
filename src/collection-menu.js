@@ -101,7 +101,7 @@ export function createCollectionMenu(element, {onExit, fullscreenAction, credits
     return button
   }
 
-  const fullscreenButton = addButton('Fullscreen', () => {
+  const fullscreenButton = window.HeliAndroid ? null : addButton('Fullscreen', () => {
     dialog.close()
     fullscreen().toggle().catch(error => console.warn('Fullscreen could not change.', error))
   })
@@ -142,6 +142,7 @@ export function createCollectionMenu(element, {onExit, fullscreenAction, credits
       dialog.setAttribute('aria-label', 'Game menu')
     })
   }
+  if (credits && window.HeliAndroid) addButton('Exit App', () => window.HeliAndroid.exitApp())
   document.body.append(dialog)
   return {
     element: dialog,
@@ -151,9 +152,10 @@ export function createCollectionMenu(element, {onExit, fullscreenAction, credits
         dialog.close()
         return
       }
-      fullscreenButton.textContent = fullscreen().active() ? 'Exit fullscreen' : 'Fullscreen'
+      if (fullscreenButton) fullscreenButton.textContent = fullscreen().active() ? 'Exit fullscreen' : 'Fullscreen'
       dialog.showModal()
-      fullscreenButton.focus()
+      const firstButton = fullscreenButton ?? soundButton
+      firstButton.focus()
     },
   }
 }
